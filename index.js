@@ -22,11 +22,9 @@ http.createServer(function(req, res){
 		//return a list of employees
 		employeeService.getEmployees(function(error, data){
 			if (error) {
-				res.writeHead(501,{'Content-type': 'text/plain'});
-				return res.end();
+				//return 501
 			}
-			res.writeHead(200);
-			return res.end(data);
+			//return 200 + data
 		});
 
 
@@ -35,22 +33,17 @@ http.createServer(function(req, res){
 		//return a single employee by the id in the route
 		employeeService.getEmployee( _url[1], function(error, data){
 			if (error) {
-				res.writeHead(501,{'Content-type': 'text/plain'});
-				return res.end();
+				//return 501
 			}
 			if (!data){
-				res.writeHead(200);
-				return res.end();
+				//404
 			}
-
-			res.writeHead(200);
-			return res.end(data);
+			//200 + data
 		});
 
 	} else {
 		//try to return the static file
-		res.writeHead(200);
-		res.end('static file maybe');
+		//else 404
 	}
 
 
