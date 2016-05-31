@@ -1,5 +1,7 @@
 var http = require('http');
 var employeeService = require('./lib/employees');
+var responder = require('./lib/responseGenerator');
+var staticFile = responder.staticFile('/public');
 
 http.createServer(function(req, res){
 
@@ -16,15 +18,15 @@ http.createServer(function(req, res){
 		return res.end(req.method + ' is not implemented by this server.');
 	}
 
-	//Setting up routes — exec checks the url against a regExp
+	//Setting up routes to get employee list and a single employee
 	if (_url = /^\/employees$/i.exec(req.url) ) {
 
 		//return a list of employees
 		employeeService.getEmployees(function(error, data){
 			if (error) {
-				//return 501
+				return responder.send500(error, res);
 			}
-			//return 200 + data
+			return responder.sendJson(data, res);
 		});
 
 
@@ -33,20 +35,18 @@ http.createServer(function(req, res){
 		//return a single employee by the id in the route
 		employeeService.getEmployee( _url[1], function(error, data){
 			if (error) {
-				//return 501
+				return responder.send500(error, res);
 			}
 			if (!data){
-				//404
+				return responder.send404(res);
 			}
-			//200 + data
+			return responder.sendJson(data, res);
 		});
 
 	} else {
-		//try to return the static file
-		//else 404
+		staticFile(req.url, res);
 	}
 
+}).listen(1333, '127.0.0.1');
 
-}).listen(1337, '127.0.0.1');
-
-console.log('Server listening at http://127.0.0.1:1337/');
+console.log('Server listening at http://127.0.0.1:1333/');
