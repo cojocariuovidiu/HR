@@ -1,7 +1,12 @@
 var http = require('http');
+var colors = require('colors');
 var employeeService = require('./lib/employees');
 var responder = require('./lib/responseGenerator');
 var staticFile = responder.staticFile('/public');
+
+//make db connection
+require('./lib/connection');
+
 
 http.createServer(function(req, res){
 
