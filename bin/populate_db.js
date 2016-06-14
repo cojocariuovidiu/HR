@@ -86,6 +86,7 @@ var data = {
 		]
 };
 
+
 var deleteEmployees = function(callback) {
 	console.info('Deleting Employees');
 	Employee.remove({}, function(err, response) {
@@ -121,22 +122,24 @@ var deleteTeams = function(callback) {
 };
 
 var addTeams = function(callback) {
-	Team.create(data.teams, function(err, response) {
+	Team.create(data.teams, function(err, teamArr) {
 		if (err) {
 			console.error('Error creating teams');
 		} else {
-			data.default_team_id = data.teams[0]._id; //Set a default team id
+			data.team_id = teamArr[0]._id;
 		}
 
-		console.info('Teams added, team id set to default');
+		console.info('Teams added');
 		callback();
 	});
 };
 
 var updateEmployeeTeams = function(callback) {
-	console.info('Updating employee teams');
+	console.info('Updating employee teams with id: ' + data.team_id);
+	var team = data.team_id;
+
 	Employee.update({}, {
-		team: data.default_team_id
+		team: data.team_id
 	}, {
 		multi: true
 	}, function(error, numberAffected, response) {

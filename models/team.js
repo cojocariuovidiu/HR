@@ -38,7 +38,7 @@ TeamSchema.plugin(postFind, {
 			if (err) {
 				return callback(err);
 			}
-			callback(null, result);
+			callback(null, results);
 		});		
 	},
 
