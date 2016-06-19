@@ -13,7 +13,7 @@
 		<table>
 			<tr ng-repeat="p in employees">
 				<td>{{ p.id }}</td>
-				<td><span>{{ p.name.first }} {{ p.name.last }}</span></td>
+				<td><span>{{ p.first }} {{ p.last }}</span></td>
 				<td><button ng-click="$parent.remove(p)">Remove</button></td>
 			</tr>
 		</table>
