@@ -31,6 +31,7 @@ router.get('/employees/:employeeId', function(req, res, next) {
 });
 
 router.put('/employees/:employeeId', function(req, res, next) {
+	
 	//Don't try to update the mongo id
 	delete req.body._id;
 	req.body.team = req.body.team._id;
@@ -42,8 +43,9 @@ router.put('/employees/:employeeId', function(req, res, next) {
 			return next(err);
 		}
 
-		res.send(200);
+		res.json(response);
 	});
 });
 
 module.exports = router ;
+

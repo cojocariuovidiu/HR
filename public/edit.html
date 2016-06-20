@@ -1,8 +1,19 @@
 <form class="pure-form">
-	<fieldset>
+	<fieldset >
+		
 		<legend>{{employee.name.first}} {{employee.name.last}}</legend>
-		<input type="text" name="first" ng-model='employee.first'><label for="first">First Name</label><br/>
-		<input type="text" name="last" ng-model="employee.last"><label for="last">Last Name</label>
+		
+		<label for="first">First Name</label>
+		<input type="text" name="first" ng-model='employee.name.first'>
+		
+		<label for="last">Last Name</label>
+		<input type="text" name="last" ng-model="employee.name.last">
+
+		<button class="pure-button pure-button-primary" ng-disabled="!employee.name.first.length && employee.name.last.length" ng-click="update()">Save</button>
+
 	</fieldset>
 </form>
+
+<div class="success" ng-show="success"><br/>{{employee.name.first}} {{employee.name.last}}: Updated Successfully!<br/><br/></div>
+
 <a class="pure-button pure-button-primary" href="#/view">Back <<<</a>

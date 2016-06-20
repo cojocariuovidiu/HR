@@ -13,6 +13,8 @@ var teams = require('./routes/teams');
 
 var app = express();
 
+app.set('env', 'development');
+
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());

@@ -6,7 +6,6 @@
 var app = angular.module('app', ['ngRoute', 'ngResource']);
 
 app.config(['$routeProvider', function($routeProvider) {
-
 	$routeProvider
 		.when('/view', {
 			templateUrl: 'view.html',
@@ -29,6 +28,9 @@ app.factory('EmployeeService', ['$resource', function($resource) {
 		},
 		get: {
 			isArray: false
+		},
+		put: {
+			method: 'PUT'
 		}
 	});
 }]);
@@ -44,12 +46,24 @@ app.controller('view', ['$scope', 'EmployeeService', function($scope, EmployeeSe
 
 app.controller('edit', ['$scope', 'EmployeeService', '$routeParams', function($scope, EmployeeService, $routeParams) {
 	$scope.employee = {};
+	$scope.success = false;
 
 	EmployeeService.get({
 		employeeId: $routeParams.employeeId
 	}, function(data) {
 		$scope.employee = data;
 	});
+
+	$scope.update = function () {
+
+		EmployeeService.put({
+			employeeId: $routeParams.employeeId
+		}, $scope.employee, function (data) {
+			$scope.employee = data;
+			$scope.success = true;
+		});
+	};
+
 }]);
 
 
