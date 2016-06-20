@@ -1,9 +1,14 @@
-# Node server for HR app
+# Multiping v.2.0
 
-A simple node server for delivering data from an ad-hoc database.
+A MEAN stack app for short term hiring.
 
 current routes:
 
 /home
 /employees
 /employees/employee-id
+
+client-side routes:
+index.html#/view
+index.html#/edit/:employeeId
+
